@@ -29,8 +29,4 @@ jobs:
         run: make test
 
       - name: Update coverage report
-        uses: ncruces/go-coverage-report@v0
-        with:
-          report: 'true'
-          chart: 'true'
-          amend: 'false'
+        uses: ncruces/go-coverage-report@main

@@ -22,8 +22,19 @@ jobs:
       - name: Golang CI-Linter
         uses: Mushus/golangci-linter@v1.1.2
 
-      - name: Build
+      - name: Build Project
         run: go build -v ./...
 
-      - name: Test
+      - name: Run Tests
         run: make test
+
+      - name: Update coverage report
+        uses: ncruces/go-coverage-report@v0
+        with:
+          report: 'true'
+          chart: 'true'
+          amend: 'false'
+        if: |
+          matrix.os == 'ubuntu-latest' &&
+          github.event_name == 'push'
+        continue-on-error: true

@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  mysql: 
+    container_name: 'mysql_account_control'
+    image: mysql:latest
+    environment: 
+      MYSQL_DATABASE: 'account_control_db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: '123456'
+      MYSQL_ROOT_PASSWORD: '123456'
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+
+  postgres:
+    container_name: 'postgres_account_control'
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '123456'
+      POSTGRES_DB: 'account_control_db'
+    ports:
+      - 5432:5432
+    expose:
+      - 5432

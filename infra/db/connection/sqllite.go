@@ -1,7 +1,7 @@
 package db
 
 import (
-	commons "controle_conta/internal/commons/strings"
+	commons "count_on_us/internal/commons/strings"
 	"errors"
 	"io/fs"
 	"strings"

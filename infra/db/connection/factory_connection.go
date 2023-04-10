@@ -1,7 +1,7 @@
 package db
 
 import (
-	"controle_conta/config"
+	"count_on_us/config"
 	"fmt"
 
 	"github.com/jmoiron/sqlx"

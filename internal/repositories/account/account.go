@@ -1,8 +1,8 @@
 package repository
 
 import (
-	models "controle_conta/infra/db/models"
-	entity "controle_conta/internal/entity/account"
+	models "count_on_us/infra/db/models"
+	entity "count_on_us/internal/entity/account"
 	"time"
 
 	"github.com/jmoiron/sqlx"

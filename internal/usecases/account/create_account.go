@@ -1,7 +1,7 @@
 package usecases
 
 import (
-	entity "controle_conta/internal/entity/account"
+	entity "count_on_us/internal/entity/account"
 )
 
 type CreateAccountUseCase struct {

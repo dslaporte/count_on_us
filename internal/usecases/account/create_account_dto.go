@@ -1,6 +1,6 @@
 package usecases
 
-import entity "controle_conta/internal/entity/account"
+import entity "count_on_us/internal/entity/account"
 
 type CreateAccountInputDTO struct {
 	DueDate        string

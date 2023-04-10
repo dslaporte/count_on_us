@@ -21,3 +21,5 @@ endif
 ping-local-db:
 	goose mysql "$(CONNECTION_STRING)" status
 
+test:
+	go test ./... -cover fmt -coverprofile=coverage/coverage.out && go tool cover -html=coverage/coverage.out

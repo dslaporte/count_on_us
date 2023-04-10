@@ -1,7 +1,7 @@
 package entity
 
 import (
-	commons "count_on_us/internal/commons/strings"
+	commons "count_on_us/src/internal/commons/strings"
 	"errors"
 
 	"github.com/google/uuid"

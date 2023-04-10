@@ -1,4 +1,4 @@
-package db_models
+package models
 
 import (
 	"database/sql"
@@ -16,5 +16,5 @@ type Account struct {
 	GroupID      string        `db:"account_group_id"`
 	Installments int           `db:"installments"`
 	CreatedAt    *sql.NullTime `db:"created_at"`
-	UpdatedAt    *sql.NullTime `db:"updated_at"`
+	UpdatedAt    *sql.NullTime `db:"updated_at"` 
 }

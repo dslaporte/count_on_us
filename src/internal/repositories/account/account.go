@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	models "count_on_us/infra/db/models"
-	entity "count_on_us/internal/entity/account"
+	entity "count_on_us/src/internal/entity/account"
+	"count_on_us/src/internal/infrastructure/db/models"
 	"time"
 
 	"github.com/jmoiron/sqlx"

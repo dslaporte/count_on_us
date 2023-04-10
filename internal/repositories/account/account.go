@@ -1,4 +1,4 @@
-package repository
+package repositories
 
 import (
 	models "count_on_us/infra/db/models"

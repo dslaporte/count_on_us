@@ -1,7 +1,7 @@
 export DRIVER=mysql
 export CONNECTION_STRING=user:123456@tcp(localhost:3306)/account_control_db?parseTime=true
 export MIGRATION_DIR="./infra/db/migrations"
-export COVERAGE_PATH=./coverage
+export COVERAGE_PATH=coverage
 
 install-goose:
 	go install github.com/pressly/goose/v3/cmd/goose@latest
@@ -22,6 +22,5 @@ endif
 ping-local-db:
 	goose mysql "$(CONNECTION_STRING)" status
 
-
 test:
-	mkdir $(COVERAGE_PATH) && go test ./... -cover fmt -coverprofile=$(COVERAGE_PATH)/coverage.out && go tool cover -html=$(COVERAGE_PATH)/coverage.out
+	go test ./... -cover -coverprofile=$(COVERAGE_PATH)/coverage.out && go tool cover -html=$(COVERAGE_PATH)/coverage.out

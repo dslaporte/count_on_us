@@ -1,7 +1,7 @@
 package entity
 
 import (
-	commons "count_on_us/src/internal/commons/strings"
+	pkg_strings "count_on_us/pkg/strings"
 	"errors"
 
 	"github.com/google/uuid"
@@ -76,10 +76,10 @@ func (a *Account) IsValid() error {
 	if a.Installments <= 0 {
 		return errors.New("installments cannot be lesser or equal than zero!")
 	}
-	if commons.IsEmpty(a.AccountGroupID) {
+	if pkg_strings.IsEmpty(a.AccountGroupID) {
 		return errors.New("group ID cannot be empty!")
 	}
-	if commons.IsEmpty(a.Description) {
+	if pkg_strings.IsEmpty(a.Description) {
 		return errors.New("description cannot be empty!")
 	}
 	return nil

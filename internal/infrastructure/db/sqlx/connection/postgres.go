@@ -1,7 +1,7 @@
 package db
 
 import (
-	commons "count_on_us/src/internal/commons/strings"
+	pkg_strings "count_on_us/pkg/strings"
 	"errors"
 	"fmt"
 
@@ -26,22 +26,22 @@ func (p PostgreSQL) Connect() (*sqlx.DB, error) {
 }
 
 func (p PostgreSQL) IsValid() error {
-	if commons.IsEmpty(p.Host) {
+	if pkg_strings.IsEmpty(p.Host) {
 		return errors.New("empty host")
 	}
-	if commons.IsEmpty(p.UserName) {
+	if pkg_strings.IsEmpty(p.UserName) {
 		return errors.New("empty username")
 	}
-	if commons.IsEmpty(p.Port) {
+	if pkg_strings.IsEmpty(p.Port) {
 		return errors.New("empty port")
 	}
-	if commons.IsEmpty(p.Database) {
+	if pkg_strings.IsEmpty(p.Database) {
 		return errors.New("empty database name")
 	}
-	if commons.IsEmpty(p.Password) {
+	if pkg_strings.IsEmpty(p.Password) {
 		return errors.New("empty password")
 	}
-	if commons.IsEmpty(p.DBType) {
+	if pkg_strings.IsEmpty(p.DBType) {
 		return errors.New("invalid dbtype for postgres")
 	}
 	return nil

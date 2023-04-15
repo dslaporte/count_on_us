@@ -1,7 +1,7 @@
 package db
 
 import (
-	commons "count_on_us/src/internal/commons/strings"
+	pkg_strings "count_on_us/pkg/strings"
 	"errors"
 	"io/fs"
 	"strings"
@@ -20,7 +20,7 @@ func (s SQLite) Connect() (*sqlx.DB, error) {
 }
 
 func (s SQLite) IsValid() error {
-	if commons.IsEmpty(s.Database) {
+	if pkg_strings.IsEmpty(s.Database) {
 		return errors.New("empty database")
 	}
 	if strings.TrimSpace(s.Database) != ":memory:" {
@@ -28,7 +28,7 @@ func (s SQLite) IsValid() error {
 			return errors.New("invalid path for sqlite database")
 		}
 	}
-	if commons.IsEmpty(s.DBtype) {
+	if pkg_strings.IsEmpty(s.DBtype) {
 		return errors.New("invalid db type for sqlite3")
 	}
 	return nil

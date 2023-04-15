@@ -1,4 +1,4 @@
-package commons
+package pkg_strings
 
 import "strings"
 

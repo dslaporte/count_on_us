@@ -1,7 +1,7 @@
 package db
 
 import (
-	commons "count_on_us/src/internal/commons/strings"
+	pkg_strings "count_on_us/pkg/strings"
 	"errors"
 	"fmt"
 
@@ -29,22 +29,22 @@ func (m MySQL) Connect() (*sqlx.DB, error) {
 }
 
 func (m MySQL) IsValid() error {
-	if commons.IsEmpty(m.Host) {
+	if pkg_strings.IsEmpty(m.Host) {
 		return errors.New("empty host")
 	}
-	if commons.IsEmpty(m.UserName) {
+	if pkg_strings.IsEmpty(m.UserName) {
 		return errors.New("empty username")
 	}
-	if commons.IsEmpty(m.Port) {
+	if pkg_strings.IsEmpty(m.Port) {
 		return errors.New("empty port")
 	}
-	if commons.IsEmpty(m.Database) {
+	if pkg_strings.IsEmpty(m.Database) {
 		return errors.New("empty database name")
 	}
-	if commons.IsEmpty(m.Password) {
+	if pkg_strings.IsEmpty(m.Password) {
 		return errors.New("empty password")
 	}
-	if commons.IsEmpty(m.DBType) {
+	if pkg_strings.IsEmpty(m.DBType) {
 		return errors.New("invalid dbtype for postgres")
 	}
 	return nil

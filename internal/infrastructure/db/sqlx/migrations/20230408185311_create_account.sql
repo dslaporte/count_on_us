@@ -1,6 +1,6 @@
 -- +goose Up
 -- +goose StatementBegin
-create table account (
+create table account(
 	id  varchar(100) not null primary key,
     description varchar(250) not null,
     due_date timestamp not null,
@@ -13,7 +13,7 @@ create table account (
     installments int not null,
     created_at timestamp,
     updated_at timestamp
-);
+)
 -- +goose StatementEnd
 
 -- +goose Down

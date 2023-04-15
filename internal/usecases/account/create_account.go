@@ -1,7 +1,8 @@
 package usecases
 
 import (
-	entity "count_on_us/src/internal/entity/account"
+	entity "count_on_us/internal/entity/account"
+	dto "count_on_us/internal/usecases/account/dto"
 )
 
 type CreateAccountUseCase struct {
@@ -16,7 +17,7 @@ func NewCreateAccountUseCase(
 	}
 }
 
-func (uc *CreateAccountUseCase) Execute(input CreateAccountInputDTO) (*CreateAccoutOutputDTO, error) {
+func (uc *CreateAccountUseCase) Execute(input dto.CreateAccountInputDTO) (*dto.CreateAccoutOutputDTO, error) {
 	account, err := entity.NewAccount(
 		input.DueDate,
 		input.PaymentDate,
@@ -33,7 +34,7 @@ func (uc *CreateAccountUseCase) Execute(input CreateAccountInputDTO) (*CreateAcc
 	if err = uc.AccountRepository.Save(account); err != nil {
 		return nil, err
 	}
-	return &CreateAccoutOutputDTO{
+	return &dto.CreateAccoutOutputDTO{
 		DueDate:      account.DueDate,
 		PaymentDate:  account.PaymentDate,
 		Description:  account.Description,

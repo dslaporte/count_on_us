@@ -1,6 +1,6 @@
 # Count On Us
 
-![Coverage](https://img.shields.io/badge/Coverage-41.2%25-yellow)
+![Coverage](https://img.shields.io/badge/Coverage-86.3%25-brightgreen)
 
 Projeto de controle de contas desenvolvido em Golang utilizando Clean Architecture
 

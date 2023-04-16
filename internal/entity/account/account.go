@@ -3,6 +3,7 @@ package entity
 import (
 	pkg_strings "count_on_us/pkg/strings"
 	"errors"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -32,8 +33,8 @@ const (
 
 type Account struct {
 	ID             string
-	DueDate        string //vencimento
-	PaymentDate    string //pagamento
+	DueDate        time.Time //vencimento
+	PaymentDate    time.Time //pagamento
 	Description    string
 	Value          float64
 	Type           AccountType
@@ -44,14 +45,15 @@ type Account struct {
 }
 
 func NewAccount(
-	dueDate string,
-	paymentDate string,
+	dueDate time.Time,
+	paymentDate time.Time,
 	description string,
 	value float64,
 	accountType AccountType,
 	status AccountStatus,
 	groupID string,
 	installments int) (*Account, error) {
+
 	a := &Account{
 		ID:             uuid.NewString(),
 		DueDate:        dueDate,

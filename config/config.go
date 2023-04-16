@@ -18,8 +18,13 @@ type DatabaseConfig struct {
 	DBType   DBType
 }
 
+type WebServer struct {
+	Port string
+}
+
 type Config struct {
 	DatabaseConfig
+	WebServer
 }
 
 func (c *Config) Load() {
@@ -35,7 +40,10 @@ func Get() *Config {
 			Password: "123456",
 			Database: "account_control_db",
 			SSLMode:  "disabled",
-			DBType:   "baba",
+			DBType:   MySQL,
+		},
+		WebServer{
+			Port: "9000",
 		},
 	}
 }

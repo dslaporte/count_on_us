@@ -2,13 +2,14 @@ package models
 
 import (
 	"database/sql"
+	"time"
 )
 
 type Account struct {
 	ID           string        `db:"id"`
 	Description  string        `db:"description"`
-	DueDate      string        `db:"due_date"`
-	PaymentDate  string        `db:"payment_date"`
+	DueDate      time.Time     `db:"due_date"`
+	PaymentDate  time.Time     `db:"payment_date"`
 	Value        float64       `db:"value"`
 	Type         string        `db:"type"`
 	Status       string        `db:"status"`
@@ -16,5 +17,5 @@ type Account struct {
 	GroupID      string        `db:"account_group_id"`
 	Installments int           `db:"installments"`
 	CreatedAt    *sql.NullTime `db:"created_at"`
-	UpdatedAt    *sql.NullTime `db:"updated_at"` 
+	UpdatedAt    *sql.NullTime `db:"updated_at"`
 }

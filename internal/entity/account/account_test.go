@@ -4,12 +4,15 @@ import (
 	"testing"
 	"time"
 
+	pkg_dates "count_on_us/pkg/dates"
+
 	"github.com/stretchr/testify/assert"
 )
 
 func TestAccountEntitySuccess(t *testing.T) {
 	t.Run("should return a new account", func(t *testing.T) {
-		account, err := NewAccount("2023-04-08", "2023-04-08", "this is a test", 10, CREDIT, OPENED, "1", 10)
+		parsedTime, _ := pkg_dates.StrToTime(time.Now().GoString())
+		account, err := NewAccount(parsedTime, parsedTime, "this is a test", 10, CREDIT, OPENED, "1", 10)
 		assert.Nil(t, err)
 		assert.NotNil(t, account)
 		assert.Equal(t, "this is a test", account.Description)
@@ -23,8 +26,8 @@ func TestAccountEntitySuccess(t *testing.T) {
 
 func TestNewAccounttEntityErrors(t *testing.T) {
 
-	dueDate := time.Now().String()
-	paymentDate := time.Now().String()
+	dueDate, _ := pkg_dates.StrToTime(time.Now().String())
+	paymentDate, _ := pkg_dates.StrToTime(time.Now().String())
 	description := "test"
 	value := 10.0
 	aType := CREDIT

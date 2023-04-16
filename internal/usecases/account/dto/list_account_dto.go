@@ -1,5 +1,7 @@
 package usecases
 
+import "time"
+
 type ListInputDTO struct {
 	Limit  int
 	Offset int
@@ -7,8 +9,8 @@ type ListInputDTO struct {
 
 type ListOutputDTO struct {
 	ID           string
-	DueDate      string
-	PaymentDate  string
+	DueDate      time.Time
+	PaymentDate  time.Time
 	Description  string
 	Value        float64
 	Type         string

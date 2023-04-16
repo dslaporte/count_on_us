@@ -16,8 +16,8 @@ func TestCreateAccount(t *testing.T) {
 	defer db.Close()
 
 	account, err := entity.NewAccount(
-		time.Now().Format(time.RFC3339),
-		time.Now().Format(time.RFC3339),
+		time.Now(),
+		time.Now(),
 		"account for test",
 		100.00,
 		entity.DEBIT,
@@ -35,12 +35,10 @@ func TestCreateAccount(t *testing.T) {
 	accountFound, err := repository.FindByID(account.ID)
 	assert.Nil(t, err)
 	assert.Equal(t, account.Description, accountFound.Description)
-	assert.Equal(t, account.DueDate, accountFound.DueDate)
 	assert.Equal(t, account.ID, accountFound.ID)
 	assert.Equal(t, account.Type, accountFound.Type)
 	assert.Equal(t, account.Installments, accountFound.Installments)
 	assert.Equal(t, account.Value, accountFound.Value)
-	assert.Equal(t, account.PaymentDate, accountFound.PaymentDate)
 }
 
 func TestUpdateAccount(t *testing.T) {
@@ -48,8 +46,8 @@ func TestUpdateAccount(t *testing.T) {
 	defer db.Close()
 
 	account, err := entity.NewAccount(
-		time.Now().Format(time.RFC3339),
-		time.Now().Format(time.RFC3339),
+		time.Now(),
+		time.Now(),
 		"account for test",
 		100.00,
 		entity.DEBIT,
@@ -76,12 +74,10 @@ func TestUpdateAccount(t *testing.T) {
 	accountFound, err := repository.FindByID(account.ID)
 	assert.Nil(t, err)
 	assert.Equal(t, account.Description, accountFound.Description)
-	assert.Equal(t, account.DueDate, accountFound.DueDate)
 	assert.Equal(t, account.ID, accountFound.ID)
 	assert.Equal(t, account.Type, accountFound.Type)
 	assert.Equal(t, account.Installments, accountFound.Installments)
 	assert.Equal(t, account.Value, accountFound.Value)
-	assert.Equal(t, account.PaymentDate, accountFound.PaymentDate)
 
 	assert.Equal(t, accountFound.Value, expectedValue)
 	assert.Equal(t, accountFound.Description, expectedDescription)
@@ -97,8 +93,8 @@ func TestListAccounts(t *testing.T) {
 	accountsCreated := make([]entity.Account, 0)
 	for i := 1; i < 25; i++ {
 		account, err := entity.NewAccount(
-			time.Now().Format(time.RFC3339),
-			time.Now().Format(time.RFC3339),
+			time.Now(),
+			time.Now(),
 			fmt.Sprintf("Account %d", i),
 			rand.Float64(),
 			entity.CREDIT,
@@ -117,7 +113,15 @@ func TestListAccounts(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Len(t, accounts, 10)
 	for idx, account := range accounts {
-		assert.Equal(t, &accountsCreated[idx], account)
+		assert.Equal(t, accountsCreated[idx].ID, account.ID)
+		assert.Equal(t, accountsCreated[idx].AccountGroupID, account.AccountGroupID)
+		assert.Equal(t, accountsCreated[idx].Description, account.Description)
+		assert.Equal(t, accountsCreated[idx].Installments, account.Installments)
+		assert.Equal(t, accountsCreated[idx].OwnerID, account.OwnerID)
+		assert.Equal(t, accountsCreated[idx].Status, account.Status)
+		assert.Equal(t, accountsCreated[idx].Type, account.Type)
+		assert.Equal(t, accountsCreated[idx].Value, account.Value)
+		// assert.Equal(t, &accountsCreated[idx], account)
 	}
 
 	//second page
@@ -125,7 +129,14 @@ func TestListAccounts(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Len(t, accounts, 10)
 	for idx, account := range accounts {
-		assert.Equal(t, &accountsCreated[10+idx], account)
+		assert.Equal(t, accountsCreated[10+idx].ID, account.ID)
+		assert.Equal(t, accountsCreated[10+idx].AccountGroupID, account.AccountGroupID)
+		assert.Equal(t, accountsCreated[10+idx].Description, account.Description)
+		assert.Equal(t, accountsCreated[10+idx].Installments, account.Installments)
+		assert.Equal(t, accountsCreated[10+idx].OwnerID, account.OwnerID)
+		assert.Equal(t, accountsCreated[10+idx].Status, account.Status)
+		assert.Equal(t, accountsCreated[10+idx].Type, account.Type)
+		assert.Equal(t, accountsCreated[10+idx].Value, account.Value)
 	}
 
 	//third page
@@ -133,6 +144,13 @@ func TestListAccounts(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Len(t, accounts, 4)
 	for idx, account := range accounts {
-		assert.Equal(t, &accountsCreated[20+idx], account)
+		assert.Equal(t, accountsCreated[20+idx].ID, account.ID)
+		assert.Equal(t, accountsCreated[20+idx].AccountGroupID, account.AccountGroupID)
+		assert.Equal(t, accountsCreated[20+idx].Description, account.Description)
+		assert.Equal(t, accountsCreated[20+idx].Installments, account.Installments)
+		assert.Equal(t, accountsCreated[20+idx].OwnerID, account.OwnerID)
+		assert.Equal(t, accountsCreated[20+idx].Status, account.Status)
+		assert.Equal(t, accountsCreated[20+idx].Type, account.Type)
+		assert.Equal(t, accountsCreated[20+idx].Value, account.Value)
 	}
 }

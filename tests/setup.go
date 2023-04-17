@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"count_on_us/config"
+	"count_on_us/configs"
 	db "count_on_us/internal/infrastructure/db/sqlx/connection"
 	"fmt"
 	"os"
@@ -13,9 +13,9 @@ import (
 )
 
 func SetupDB() *sqlx.DB {
-	config := config.DatabaseConfig{
+	config := configs.DatabaseConfig{
 		Database: ":memory:",
-		DBType:   config.SQLite3,
+		DBType:   configs.SQLite3,
 	}
 	db, err := db.NewDatabaseFactory(&config)
 	if err != nil {

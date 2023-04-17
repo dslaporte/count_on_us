@@ -37,7 +37,7 @@ func (r *AccountRepository) Save(account *entity.Account) error {
 			?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
 		)
 	`
-	statement, err := r.DB.Prepare(sql)
+	statement, err := r.DB.Preparex(sql)
 	if err != nil {
 		return err
 	}
@@ -95,12 +95,12 @@ func (r *AccountRepository) List(limit, offset int) ([]*entity.Account, error) {
 }
 
 func (r *AccountRepository) FindByID(id string) (*entity.Account, error) {
-	statement, err := r.DB.Preparex("select * from account")
+	statement, err := r.DB.Preparex("select * from account where id = ?")
 	if err != nil {
 		return nil, err
 	}
 	accountDB := models.Account{}
-	if err = statement.Get(&accountDB); err != nil {
+	if err = statement.Get(&accountDB, id); err != nil {
 		return nil, err
 	}
 	return &entity.Account{

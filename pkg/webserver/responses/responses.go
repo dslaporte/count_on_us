@@ -18,6 +18,14 @@ func MalformedBody(w http.ResponseWriter, errors []string) {
 	})
 }
 
+func BadRequest(w http.ResponseWriter, errors []string) {
+	w.WriteHeader(http.StatusBadRequest)
+	_ = json.NewEncoder(w).Encode(&ResponseError{
+		Message: "Bad Request",
+		Errors:  errors,
+	})
+}
+
 func InternalServerError(w http.ResponseWriter, errors []string) {
 	w.WriteHeader(http.StatusInternalServerError)
 	_ = json.NewEncoder(w).Encode(&ResponseError{

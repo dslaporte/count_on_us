@@ -2,8 +2,17 @@ package webserver
 
 import "net/http"
 
+type HTTPMethod string
+
+const (
+	GET    HTTPMethod = "GET"
+	POST   HTTPMethod = "POST"
+	PUT    HTTPMethod = "PUT"
+	DELETE HTTPMethod = "DELETE"
+)
+
 type WebServerInterface interface {
-	AddHandler(path string, handler http.HandlerFunc)
+	AddHandler(method HTTPMethod, path string, handler http.HandlerFunc)
 	Start()
 }
 

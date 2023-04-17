@@ -9,9 +9,7 @@ import (
 )
 
 type AccountType string
-
 type OutgoingType string
-
 type AccountStatus string
 
 const (

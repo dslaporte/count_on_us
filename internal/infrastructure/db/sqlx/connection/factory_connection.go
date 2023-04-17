@@ -1,7 +1,7 @@
 package db
 
 import (
-	"count_on_us/config"
+	"count_on_us/configs"
 	"fmt"
 
 	"github.com/jmoiron/sqlx"
@@ -13,7 +13,7 @@ var database_types = []string{
 	"sqlite3",
 }
 
-func NewDatabaseFactory(cfg *config.DatabaseConfig) (*sqlx.DB, error) {
+func NewDatabaseFactory(cfg *configs.DatabaseConfig) (*sqlx.DB, error) {
 	switch cfg.DBType {
 	case "postgres":
 		{

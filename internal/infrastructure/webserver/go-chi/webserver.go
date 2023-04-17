@@ -1,38 +1,49 @@
 package webserver
 
 import (
+	"count_on_us/internal/infrastructure/webserver"
+	"errors"
 	"fmt"
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
 )
 
 type WebServer struct {
-	Router        chi.Router
-	Handlers      map[string]http.HandlerFunc
-	WebServerPort string
+	router        chi.Router
+	webServerPort string
 }
 
 func NewGoChiWebServer(serverPort string) *WebServer {
+	server := chi.NewRouter()
+	server.Use(middleware.Logger)
+	server.Use(middleware.Recoverer)
 	return &WebServer{
-		Router:        chi.NewRouter(),
-		Handlers:      make(map[string]http.HandlerFunc),
-		WebServerPort: serverPort,
+		router:        server,
+		webServerPort: serverPort,
 	}
 }
 
-func (s *WebServer) AddHandler(path string, handler http.HandlerFunc) {
-	s.Handlers[path] = handler
+func (s *WebServer) AddHandler(method webserver.HTTPMethod, path string, handler http.HandlerFunc) {
+	switch method {
+	case
+		webserver.GET:
+		s.router.Get(path, handler)
+	case webserver.POST:
+		s.router.Post(path, handler)
+	case webserver.PUT:
+		s.router.Put(path, handler)
+	case webserver.DELETE:
+		s.router.Delete(path, handler)
+	default:
+		panic(errors.New("invalid http method (POST|PUT|DELETE|GET)"))
+	}
 }
 
 func (s *WebServer) Start() {
-	s.Router.Use(middleware.Logger)
-	for path, handler := range s.Handlers {
-		s.Router.Handle(path, handler)
-	}
-	fmt.Printf("Server is running at :%s", s.WebServerPort)
-	if err := http.ListenAndServe(fmt.Sprintf(":%s", s.WebServerPort), s.Router); err != nil {
+	fmt.Printf("Server is running at :%s", s.webServerPort)
+	if err := http.ListenAndServe(fmt.Sprintf(":%s", s.webServerPort), s.router); err != nil {
 		panic(err)
 	}
 }

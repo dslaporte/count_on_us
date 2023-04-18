@@ -50,6 +50,26 @@ func TestUpdateAccountUseCase(t *testing.T) {
 		assert.EqualError(t, err, expectedError)
 	})
 
+	t.Run("should return an error when try to find updated record", func(t *testing.T) {
+		expectedError := "database error"
+		inputDTO := usecases.UpdateAccountInputDTO{
+			DueDate:        account.DueDate,
+			PaymentDate:    account.PaymentDate,
+			Description:    account.Description,
+			Value:          account.Value,
+			AccountType:    account.Type,
+			Status:         account.Status,
+			AccountGroupID: account.AccountGroupID,
+		}
+		accountUpdateUsecase := NewUpdateAccountUseCase(accountRepository)
+		accountRepository.EXPECT().Update(&account).Return(nil)
+		accountRepository.EXPECT().FindByID(account.ID).Return(nil, fmt.Errorf(expectedError))
+		accountUpdateOutputDTO, err := accountUpdateUsecase.Execute(account.ID, inputDTO)
+		assert.NotNil(t, err)
+		assert.Nil(t, accountUpdateOutputDTO)
+		assert.EqualError(t, err, expectedError)
+	})
+
 	t.Run("should return an updated record", func(t *testing.T) {
 		inputDTO := usecases.UpdateAccountInputDTO{
 			DueDate:        account.DueDate,

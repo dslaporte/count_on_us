@@ -41,7 +41,7 @@ func (r *AccountRepository) Save(account *entity.Account) error {
 	if err != nil {
 		return err
 	}
-	_, err = statement.Exec(
+	result, err := statement.Exec(
 		account.ID,
 		account.Description,
 		account.DueDate,
@@ -55,7 +55,10 @@ func (r *AccountRepository) Save(account *entity.Account) error {
 		time.Now(),
 		nil,
 	)
-	return err
+	if rows, err := result.RowsAffected(); err != nil || rows == 0 {
+		return err
+	}
+	return nil
 }
 
 func (r *AccountRepository) List(limit, offset int) ([]*entity.Account, error) {
@@ -120,17 +123,16 @@ func (r *AccountRepository) FindByID(id string) (*entity.Account, error) {
 func (r *AccountRepository) Update(account *entity.Account) error {
 	updatedAt, _ := time.Parse(time.RFC3339, time.Now().String())
 	accountModel := models.Account{
-		ID:           account.ID,
-		Description:  account.Description,
-		DueDate:      account.DueDate,
-		PaymentDate:  account.PaymentDate,
-		Value:        account.Value,
-		Type:         string(account.Type),
-		Status:       string(account.Status),
-		OwnerID:      account.OwnerID,
-		GroupID:      account.AccountGroupID,
-		Installments: account.Installments,
-		UpdatedAt:    &sql.NullTime{Time: updatedAt},
+		ID:          account.ID,
+		Description: account.Description,
+		DueDate:     account.DueDate,
+		PaymentDate: account.PaymentDate,
+		Value:       account.Value,
+		Type:        string(account.Type),
+		Status:      string(account.Status),
+		OwnerID:     account.OwnerID,
+		GroupID:     account.AccountGroupID,
+		UpdatedAt:   &sql.NullTime{Time: updatedAt},
 	}
 
 	sql := `
@@ -143,7 +145,6 @@ func (r *AccountRepository) Update(account *entity.Account) error {
 			status=:status,
 			owner_id=:owner_id,
 			account_group_id=:account_group_id,
-			installments=:installments,
 			updated_at=:updated_at
 		where
 			id=:id

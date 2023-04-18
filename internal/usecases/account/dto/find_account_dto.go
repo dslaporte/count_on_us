@@ -2,7 +2,7 @@ package usecases
 
 import "time"
 
-type FindAccoutOutputDTO struct {
+type FindAccountOutputDTO struct {
 	ID           string    `json:"id"`
 	DueDate      time.Time `json:"due_date"`
 	PaymentDate  time.Time `json:"payment_date"`

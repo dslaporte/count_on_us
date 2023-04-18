@@ -15,30 +15,32 @@ func TestCreateAccount(t *testing.T) {
 	db := tests.SetupDB()
 	defer db.Close()
 
-	account, err := entity.NewAccount(
-		time.Now(),
-		time.Now(),
-		"account for test",
-		100.00,
-		entity.DEBIT,
-		entity.OPENED,
-		"1",
-		1,
-	)
-	assert.Nil(t, err)
+	t.Run("should insert a new account", func(t *testing.T) {
+		account, err := entity.NewAccount(
+			time.Now(),
+			time.Now(),
+			"account for test",
+			100.00,
+			entity.DEBIT,
+			entity.OPENED,
+			"1",
+			1,
+		)
+		assert.Nil(t, err)
 
-	repository := NewAccountRepository(db)
-	assert.NotNil(t, repository)
-	err = repository.Save(account)
-	assert.Nil(t, err)
+		repository := NewAccountRepository(db)
+		assert.NotNil(t, repository)
+		err = repository.Save(account)
+		assert.Nil(t, err)
 
-	accountFound, err := repository.FindByID(account.ID)
-	assert.Nil(t, err)
-	assert.Equal(t, account.Description, accountFound.Description)
-	assert.Equal(t, account.ID, accountFound.ID)
-	assert.Equal(t, account.Type, accountFound.Type)
-	assert.Equal(t, account.Installments, accountFound.Installments)
-	assert.Equal(t, account.Value, accountFound.Value)
+		accountFound, err := repository.FindByID(account.ID)
+		assert.Nil(t, err)
+		assert.Equal(t, account.Description, accountFound.Description)
+		assert.Equal(t, account.ID, accountFound.ID)
+		assert.Equal(t, account.Type, accountFound.Type)
+		assert.Equal(t, account.Installments, accountFound.Installments)
+		assert.Equal(t, account.Value, accountFound.Value)
+	})
 }
 
 func TestUpdateAccount(t *testing.T) {

@@ -15,12 +15,12 @@ func NewFindAccountUseCase(repository entity.AccountRepositoryInterface) *FindAc
 	}
 }
 
-func (u *FindAccountUseCase) Execute(id string) (*dto.FindAccoutOutputDTO, error) {
+func (u *FindAccountUseCase) Execute(id string) (*dto.FindAccountOutputDTO, error) {
 	account, err := u.AccountRepository.FindByID(id)
 	if err != nil {
 		return nil, err
 	}
-	return &dto.FindAccoutOutputDTO{
+	return &dto.FindAccountOutputDTO{
 		ID:           account.ID,
 		DueDate:      account.DueDate,
 		PaymentDate:  account.PaymentDate,

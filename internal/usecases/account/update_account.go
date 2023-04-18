@@ -16,7 +16,6 @@ func NewUpdateAccountUseCase(repository entity.AccountRepositoryInterface) *Upda
 }
 
 func (u *UpdateAccountUseCase) Execute(id string, inputDTO dto.UpdateAccountInputDTO) (*dto.UpdateAccountOutputDTO, error) {
-
 	err := u.AccountRepository.Update(&entity.Account{
 		ID:             id,
 		DueDate:        inputDTO.DueDate,
